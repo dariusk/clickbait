@@ -1,3 +1,5 @@
+var sub = "SXGWLZPDOKFIVUHJYTQBNMACERxswgzldpkoifuvjhtybqmncare";
+
 var searchCount = 0;
 var fullResults = [];
 var imageSearch = new google.search.ImageSearch();
@@ -32,15 +34,23 @@ function doError (e) {
 Array.prototype.pick = function() {
   return this[Math.floor(Math.random()*this.length)];
 }
+if (gup('d') === "") {
+	var thisNoun = nouns.pick().word;
+	var thisAdj = leigh_adjs.pick();
+	var thisNum = Math.floor(Math.random()*10+10);
+}
+else {
+  var thisAdj = decodeStr(unescape(gup('d')).split('$')[0]);
+  var thisNoun = decodeStr(unescape(gup('d')).split('$')[1]);
+  var thisNum = gup('n');
+}
 
-var thisNoun = nouns.pick().word;
-var thisAdj = leigh_adjs.pick();
-var thisNum = Math.floor(Math.random()*10+10);
+
 
 var headline = "The " + thisNum + " Most " + thisAdj.humanize() + " " + thisNoun.pluralize().humanize();
 $('body').append('<h1>'+headline+'</h1>');
+$('body').append('<p><a href="'+location.href.split('?')[0]+'?d='+encodeStr(thisAdj)+'$'+encodeStr(thisNoun)+'&n='+thisNum+'">Share this!</a></p>')
 imageSearch.execute(thisNoun);
-
 function caption() {
 	var result = "";
 	var captions = [
@@ -61,4 +71,43 @@ function caption() {
 
 	result += "";
 	return result;
+}
+
+function encodeStr(uncoded) {
+  uncoded = uncoded.toUpperCase().replace(/^\s+|\s+$/g,"");
+  var coded = "";
+  var chr;
+  for (var i = uncoded.length - 1; i >= 0; i--) {
+    chr = uncoded.charCodeAt(i);
+    coded += (chr >= 65 && chr <= 90) ? 
+      sub.charAt(chr - 65 + 26*Math.floor(Math.random()*2)) :
+      String.fromCharCode(chr); 
+    }
+  return encodeURIComponent(coded);  
+}
+
+function decodeStr(coded) {
+  coded = decodeURIComponent(coded);  
+  var uncoded = "";
+  var chr;
+  for (var i = coded.length - 1; i >= 0; i--) {
+    chr = coded.charAt(i);
+    uncoded += (chr >= "a" && chr <= "z" || chr >= "A" && chr <= "Z") ?
+      String.fromCharCode(65 + 32 + sub.indexOf(chr) % 26) :
+      chr; 
+    }
+  return uncoded;   
+} 
+
+function gup( name ){
+  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");  
+  var regexS = "[\\?&]"+name+"=([^&#]*)";  
+  var regex = new RegExp( regexS );  
+  var results = regex.exec( window.location.href ); 
+  if( results == null ) {
+    return "";  
+  }
+  else {
+    return results[1];
+  }
 }
