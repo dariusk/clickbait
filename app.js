@@ -22,7 +22,7 @@ function appendStuff() {
   for (var i=0;i<thisNum;i++) {
   	$('body').append('<div id="' + i + '"></div>');
     $('#'+i).append('<img src="' + fullResults[i].url + '" onerror="doError(this)" width=400>');
-    $('#'+i).append('<p>' + (i+1) + '. ' + caption() + ' <a href="#'+i+'">(Link to this!)</a></p>');
+    $('#'+i).append('<p>' + (i+1) + '. ' + caption() + '</p>');
   }
 }
 
@@ -48,7 +48,14 @@ function caption() {
 		"Now that's what I call " + thisAdj + "!!",
 		"Don't you wish you had a " + thisNoun + " like this to call your own?",
 		"Sure, your mom might think it's " + adjs.pick().word + ", but we're pretty sure this " + thisNoun + " is as " + thisAdj + " as they come!",
-		"Two words: " + thisAdj.humanize() + ". " + thisNoun.humanize() + ". 'nuff said!"
+		"Two words: " + thisAdj.humanize() + ". " + thisNoun.humanize() + ". 'nuff said!",
+		adjs.pick().word.humanize() + "? " + adjs.pick().word.humanize() + "? We're thinking this " + thisNoun + " is 100% pure " + thisAdj + "!",
+		"We're betting you haven't seen a " + thisNoun + " like this all week!",
+		"This particular " + thisNoun + " became internet famous for being " + thisAdj + " late last year.",
+		"This " + thisNoun + " is practically synonymous with " + thisAdj + "!",
+		"Basically, if you're interested in " + thisAdj + " stuff, you can't go wrong here.",
+		"A " + thisAdj + " " + thisNoun + " for the ages!",
+		"Classic " + thisNoun + " of the " + thisAdj + " variety!"
 	];
 	result += captions.pick();
 
