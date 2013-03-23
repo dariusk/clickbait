@@ -65,7 +65,11 @@ function caption() {
 		"This " + thisNoun + " is practically synonymous with " + thisAdj + "!",
 		"Basically, if you're interested in " + thisAdj + " stuff, you can't go wrong here.",
 		"A " + thisAdj + " " + thisNoun + " for the ages!",
-		"Classic " + thisNoun + " of the " + thisAdj + " variety!"
+		"Classic " + thisNoun + " of the " + thisAdj + " variety!",
+		"Hey, " + nouns.pick().word.pluralize() + " called: they want their " + thisAdj + " back!",
+		"There's only one word to describe this " + thisNoun + ", and that word is... " + thisAdj + ", baby!",
+		"This " + thisNoun + " is probably best known for its marriage to the hottest celebrity of the year, though it's included in THIS list because it's so " + thisAdj + "!",
+		"Did someone say \"" + thisAdj + "\"?"
 	];
 	result += captions.pick();
 
