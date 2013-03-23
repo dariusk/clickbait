@@ -1,4 +1,3 @@
-google.load("search", "1");
 var searchCount = 0;
 var fullResults = [];
 var imageSearch = new google.search.ImageSearch();
@@ -21,11 +20,15 @@ function searchComplete() {
 
 function appendStuff() {
   for (var i=0;i<thisNum;i++) {
-    $('body').append('<img src="' + fullResults[i].url + '" width=400>');
-    $('body').append('<p>' + (i+1) + '. ' + caption() + '</p>');
+  	$('body').append('<div id="' + i + '"></div>');
+    $('#'+i).append('<img src="' + fullResults[i].url + '" onerror="doError(this)" width=400>');
+    $('#'+i).append('<p>' + (i+1) + '. ' + caption() + ' <a href="#'+i+'">(Link to this!)</a></p>');
   }
 }
 
+function doError (e) {
+	console.log($(e).parent().remove());
+}
 Array.prototype.pick = function() {
   return this[Math.floor(Math.random()*this.length)];
 }
@@ -43,7 +46,9 @@ function caption() {
 	var captions = [
 		"Wow, check out this " + thisNoun + ". How " + thisAdj + "!",
 		"Now that's what I call " + thisAdj + "!!",
-		"Don't you wish you had a " + thisNoun + " like this to call your own?"
+		"Don't you wish you had a " + thisNoun + " like this to call your own?",
+		"Sure, your mom might think it's " + adjs.pick().word + ", but we're pretty sure this " + thisNoun + " is as " + thisAdj + " as they come!",
+		"Two words: " + thisAdj.humanize() + ". " + thisNoun.humanize() + ". 'nuff said!"
 	];
 	result += captions.pick();
 
